@@ -1,0 +1,172 @@
+/* styles.css */
+
+/* Global Styles */
+body {
+    background-color: #2D2D2D;
+    color: #CCCCCC;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    margin: 50px auto;
+    max-width: 500px;
+    padding: 20px;
+}
+
+/* Input Fields */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    background-color: #3C3C3C;
+    color: #FFFFFF;
+    border: 1px solid #555555;
+    border-radius: 3px;
+}
+
+.input-field:focus {
+    border-color: #FFFFFF;
+    outline: none;
+}
+
+.select-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    background-color: #3C3C3C;
+    color: #FFFFFF;
+    border: 1px solid #555555;
+    border-radius: 3px;
+    appearance: none;
+}
+
+.select-field:focus {
+    border-color: #FFFFFF;
+    outline: none;
+}
+
+/* Textarea */
+.textarea-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    background-color: #3C3C3C;
+    color: #FFFFFF;
+    border: 1px solid #555555;
+    border-radius: 3px;
+    resize: vertical;
+}
+
+.textarea-field:focus {
+    border-color: #FFFFFF;
+    outline: none;
+}
+
+/* Buttons */
+.button {
+    background-color: #555555;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #666666;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #1E1E1E;
+    width: 200px;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    float: left;
+    overflow-y: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 10px;
+    color: #CCCCCC;
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    background-color: #333333;
+}
+
+/* Content */
+.content {
+    margin-left: 200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Top Menu */
+.top-menu {
+    background-color: #1E1E1E;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.top-menu .button {
+    background-color: transparent;
+    color: #CCCCCC;
+    margin-right: 10px;
+}
+
+.top-menu .button:hover {
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+/* Item List */
+.item-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.item-list li {
+    padding: 10px;
+    border-bottom: 1px solid #555555;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.item-list li:hover {
+    background-color: #333333;
+}
+
+/* Form Buttons */
+.form-buttons {
+    margin-top: 20px;
+}
+
+/* Headings */
+h1 {
+    color: #FFFFFF;
+}
+
+/* Labels */
+.label {
+    display: block;
+    margin-bottom: 5px;
+    color: #CCCCCC;
+}
+
+/* Error Message */
+.error-message {
+    color: #FF5555;
+    margin-bottom: 15px;
+}

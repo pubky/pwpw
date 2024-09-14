@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Entry</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Entry</h1>
+        <!-- Error Message -->
+        <div class="error-message">
+            Error: Please correct the highlighted fields.
+        </div>
+        <form>
+            <label class="label">Title</label>
+            <input type="text" class="input-field" placeholder="Title" value="Existing Title">
+
+            <label class="label">Username</label>
+            <input type="text" class="input-field" placeholder="Username" value="Existing Username">
+
+            <label class="label">Password</label>
+            <input type="password" class="input-field" placeholder="Password" value="ExistingPassword">
+
+            <label class="label">Repeat Password</label>
+            <input type="password" class="input-field" placeholder="Repeat Password" value="ExistingPassword">
+
+            <label class="label">URL</label>
+            <input type="url" class="input-field" placeholder="URL" value="https://example.com">
+
+            <label class="label">Category</label>
+            <select class="select-field">
+                <option value="">Select Category</option>
+                <option value="category1" selected>Category 1</option>
+                <option value="category2">Category 2</option>
+                <!-- Add more categories as needed -->
+            </select>
+
+            <label class="label">Notes</label>
+            <textarea class="textarea-field" rows="5" placeholder="Notes">Existing notes...</textarea>
+
+            <div class="form-buttons">
+                <button type="submit" class="button">Save</button>
+                <button type="button" class="button">Close</button>
+                <button type="button" class="button">Delete</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

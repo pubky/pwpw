@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Entry</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Entry</h1>
+        <!-- Error Message -->
+        <div class="error-message">
+            Error: Please fill in all required fields.
+        </div>
+        <form>
+            <label class="label">Title</label>
+            <input type="text" class="input-field" placeholder="Title">
+
+            <label class="label">Username</label>
+            <input type="text" class="input-field" placeholder="Username">
+
+            <label class="label">Password</label>
+            <input type="password" class="input-field" placeholder="Password">
+
+            <label class="label">Repeat Password</label>
+            <input type="password" class="input-field" placeholder="Repeat Password">
+
+            <label class="label">URL</label>
+            <input type="url" class="input-field" placeholder="URL">
+
+            <label class="label">Category</label>
+            <select class="select-field">
+                <option value="">Select Category</option>
+                <option value="category1">Category 1</option>
+                <option value="category2">Category 2</option>
+                <!-- Add more categories as needed -->
+            </select>
+
+            <label class="label">Notes</label>
+            <textarea class="textarea-field" rows="5" placeholder="Notes"></textarea>
+
+            <div class="form-buttons">
+                <button type="submit" class="button">Add</button>
+                <button type="button" class="button">Close</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
