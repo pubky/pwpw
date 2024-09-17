@@ -12,9 +12,9 @@ function App() {
 
   let content
 
-  // console.info('loc', loc.searchParams?.get('id'))
+  console.info('signup', signup)
 
-  if (signup.state !== 'hasData') {
+  if (signup.state !== 'hasData' || !signup.data) {
     content = <Login />;
   } else if (loc.pathname === '/') {
     content = <Main />;
