@@ -1,54 +1,15 @@
 import { Keypair, PubkyClient, PublicKey } from "@synonymdev/pubky";
 import { Buffer } from "buffer";
-// import crypto from "crypto";
 import { atom } from "jotai";
 import { atomWithLocation } from 'jotai-location';
 import { atomWithStorage, loadable } from "jotai/utils";
+
 import { TCategories, TItems } from "../types";
+import { decodeData, encodeData } from "./encryption";
 
-import { encodeData, decodeData } from "./encryption";
-
-// console.info(window.crypto.getRandomValues(new Uint8Array(16)));
-// const crypto = window.crypto;
-
-// encryption
-// const algorithm = 'aes256';
-// const inputEncoding = 'utf8';
-// const outputEncoding = 'hex';
-// const ivlength = 16  // AES blocksize
-// const iv = crypto.randomBytes(ivlength);
-// const iv = crypto.getRandomValues(new Uint8Array(ivlength))
-
-// const HOMESERVER = "8pinxxgqs41n4aididenw5apqp1urfmzdztr8jt4abrkdn435ewo";
 const HOMESERVER = "8pinxxgqs41n4aididenw5apqp1urfmzdztr8jt4abrkdn435ewo";
 const homeserver = PublicKey.from(HOMESERVER);
 const pubkyClient = PubkyClient.testnet();
-
-// // decode and decrypt
-// const decode = (data: Buffer, secretKey: string) => {
-//   const string = data.toString();
-//   const encKey = Buffer.from(secretKey, 'hex');
-//   const components = string.split(':');
-//   const iv_from_ciphertext = Buffer.from(components.shift(), outputEncoding);
-//   const decipher = crypto.createDecipheriv(algorithm, encKey, iv_from_ciphertext);
-//   let deciphered = decipher.update(components.join(':'), outputEncoding, inputEncoding);
-//   deciphered += decipher.final(inputEncoding);
-//   const payload = JSON.parse(deciphered);
-//   return payload;
-// }
-
-// // encrypt and encode
-// const encode = (data: any, secretKey: string) => {
-//   const string = JSON.stringify(data);
-//   // let payload = Buffer.from(string);
-//   const encKey = Buffer.from(secretKey, 'hex');
-//   const cipher = crypto.createCipheriv(algorithm, encKey, iv);
-//   let ciphered = cipher.update(string, inputEncoding, outputEncoding);
-//   ciphered += cipher.final(outputEncoding);
-//   const ciphertext = iv.toString() + ':' + ciphered
-//   const payload = Buffer.from(ciphertext);
-//   return payload;
-// }
 
 export const locationAtom = atomWithLocation();
 
@@ -111,19 +72,17 @@ export const categoiesRWAtom = atom(async (get) => {
   //   await signup.delete(`${url}cats`);
   // } catch (e) {}
 
+  console.info('CATS', `${url}cats`)
   let raw = await signup.get(`${url}cats`);
+  console.info('CATS', raw)
   // if file not found, create empty
   if (!raw) {
-    // const empty = Buffer.from(encodeData([], secretKey));
     const empty = await encodeData([], secretKey);
     await signup.put(`${url}cats`, empty);
     return [];
   }
 
   return await decodeData(raw, secretKey);
-  // return await decodeData(Buffer.from(raw!).toString(), secretKey);
-
-  // return JSON.parse(Buffer.from(raw!).toString());
 }, async (get, set, cats: TCategories) => {
   const signup = await get(signupAtom);
   if (!signup) {
@@ -149,6 +108,10 @@ export const itemsRWAtom = atom(async (get) => {
   if (!signup) {
     return []
   }
+  const secretKey = get(secretKeyAtom);
+  if (!secretKey) {
+    return []
+  }
   const url = get(urlAtom);
   if (!url) {
     return []
@@ -161,26 +124,77 @@ export const itemsRWAtom = atom(async (get) => {
   const list = await signup.list(url);
   const noCats = list.filter(i => !i.endsWith('cats'));
 
+  try {
+    await Promise.all(noCats.map(async (i) => {
+      await signup.delete(i);
+    }))
+  } catch (e) {}
+
+  // const items = []
+
+  // for (let i of noCats) {
+  //   const id = i.split('/').pop();
+  //   const raw = await signup.get(`${url}${i}`);
+  //   const parsed = await decodeData(raw!, secretKey);
+  //   items.push({ ...parsed, id })
+  // }
+
+  console.info('noCats', noCats)
+
   const items = await Promise.all(noCats.map(async (i) => {
     const id = i.split('/').pop();
-    const raw = await signup.get(i);
-    const parsed = JSON.parse(Buffer.from(raw!).toString());
-    return { id, ...parsed };
+    console.info('id', id)
+    const raw = await signup.get(`${url}${id}`);
+    // const parsed = JSON.parse(Buffer.from(raw!).toString());
+    console.info('raw', raw)
+    const parsed = await decodeData(raw!, secretKey);
+    return { ...parsed, id };
   }));
+  console.info('items2', items)
   return items as TItems;
 }, async (get, set, items: TItems) => {
   const signup = await get(signupAtom);
   if (!signup) {
     return
   }
+  const secretKey = get(secretKeyAtom);
+  if (!secretKey) {
+    return
+  }
   const url = get(urlAtom);
   if (!url) {
     return
   }
-  const buff = Buffer.from(JSON.stringify(items));
-  await signup.put(`${url}items`, buff);
+
+  await Promise.all(items.map(async (item) => {
+    const buff = await encodeData(item, secretKey);
+    // const buff = await encodeData([], secretKey);
+    console.info('path', `${url}${item.id}`)
+    // await signup.put(`${url}${item.id}`, buff);
+    await signup.put(`${url}${item.id}`, buff);
+  }))
+
+  await Promise.all(items.map(async (item) => {
+    console.info("GET", item.id)
+    const r = await signup.get(`${url}${item.id}`);
+    console.info("GET RES", item.id, r)
+  }))
+
+
+  // await signup.put(`pubky://jhifu5qeg366soyrxuwd739i33atwi638k77i8eh7bceaiid34ry/pub/pwpw/aaaa`, await encodeData([], secretKey));
+  // console.info('PUT')
+  // const g = await signup.get(`pubky://jhifu5qeg366soyrxuwd739i33atwi638k77i8eh7bceaiid34ry/pub/pwpw/aaaa`);
+  // console.info('GET', g)
+
+  // for (let i of items) {
+  //   // const buff = await encodeData(i, secretKey);
+  //   const buff = await encodeData([], secretKey);
+  //   await signup.put(`${url}zzzz`, buff);
+  //   // await signup.put(`${url}${i.id}`, buff);
+  // }
+
   set(itemsAtom, items);
-  return []
+  // return []
 });
 
 

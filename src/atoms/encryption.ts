@@ -1,8 +1,5 @@
 import { Buffer } from "buffer";
 
-// Ensure that this code runs in a secure context (HTTPS) as SubtleCrypto is only available there.
-
-// Define the encryption algorithm parameters
 const algorithmName = 'AES-GCM'; // or 'AES-GCM' based on your requirements
 const keyLength = 256; // in bits
 

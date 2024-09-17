@@ -12,7 +12,7 @@ function App() {
 
   let content
 
-  console.info('loc', loc.searchParams?.get('id'))
+  // console.info('loc', loc.searchParams?.get('id'))
 
   if (signup.state !== 'hasData') {
     content = <Login />;

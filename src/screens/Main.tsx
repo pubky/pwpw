@@ -24,19 +24,24 @@ const Main = () => {
     console.info('saved')
   }
 
+  const handleSetItems = async () => {
+    await setItems([{ id: 'aaaa', title: 'Google' }, { id: 'bbbb', title: 'Facebook' }])
+    console.info('saved')
+  }
+
   const handleAdd = () => {
     setLoc({ pathname: '/add' })
   }
 
-  console.info('items', items)
+  // console.info('items', items)
 
   return (
     <>
       <div className="sidebar">
         <ul>
           <li>Category 1</li>
-          <li>Category 2</li>
-          <li onClick={handleSetCat}>Category 3</li>
+          <li onClick={handleSetItems}>set items</li>
+          <li onClick={handleSetCat}>set cats</li>
           {cats.map((c: TCategory) => (
             <li key={c.id} onClick={() => handleCatClick(c.id)}>{c.name}</li>
           ))}
@@ -57,6 +62,9 @@ const Main = () => {
             <li>Item 1</li>
             <li>Item 2</li>
             <li>Item 3</li>
+            {items.map((i) => (
+              <li key={i.id}>{i.title}</li>
+            ))}
           </ul>
         </div>
       </div>

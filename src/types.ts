@@ -8,6 +8,7 @@ export type TCategories = TCategory[];
 export type TItem = {
   id: string;
   title: string;
+  category?: string;
   username?: string;
   password?: string;
   url?: string;
