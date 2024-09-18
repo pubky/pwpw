@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { categoiesRWAtom, itemsRWAtom, locationAtom } from "../atoms";
+import { categoiesRWAtom, itemsAtom, itemsRWAtom, locationAtom } from "../atoms";
 import { loadable } from "jotai/utils";
 import { TCategory } from "../types";
 
@@ -8,6 +8,7 @@ export const loadableCategoiesAtom = loadable(categoiesRWAtom)
 const Main = () => {
   const [cats, setCats] = useAtom(categoiesRWAtom)
   const [items, setItems] = useAtom(itemsRWAtom)
+  const [items2, setItems2] = useAtom(itemsAtom)
   const [loc, setLoc] = useAtom(locationAtom)
 
   const handleCatClick = (id: string) => {
@@ -21,19 +22,26 @@ const Main = () => {
 
   const handleSetCat = async () => {
     await setCats([{ id: '1', name: 'Sites' }])
-    console.info('saved')
   }
 
   const handleSetItems = async () => {
     await setItems([{ id: 'aaaa', title: 'Google' }, { id: 'bbbb', title: 'Facebook' }])
-    console.info('saved')
+  }
+
+  const handleSetItemsEmpty = async () => {
+    try {
+      await setItems([])
+    } catch(e) {
+      console.info('e', e)
+    }
   }
 
   const handleAdd = () => {
     setLoc({ pathname: '/add' })
   }
 
-  // console.info('items', items)
+  console.info('items', items)
+  console.info('items2', items2)
 
   return (
     <>
@@ -41,6 +49,7 @@ const Main = () => {
         <ul>
           <li>Category 1</li>
           <li onClick={handleSetItems}>set items</li>
+          <li onClick={handleSetItemsEmpty}>set items empty</li>
           <li onClick={handleSetCat}>set cats</li>
           {cats.map((c: TCategory) => (
             <li key={c.id} onClick={() => handleCatClick(c.id)}>{c.name}</li>

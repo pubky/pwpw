@@ -5,14 +5,13 @@ import Main from "./screens/Main";
 import GlobalStyle from './styles/global';
 
 import "./styles.css";
+import { Suspense } from "react";
 
 function App() {
   const [loc, setLoc] = useAtom(locationAtom)
   const [signup] = useAtom(loadableSignupAtom)
 
   let content
-
-  console.info('signup', signup)
 
   if (signup.state !== 'hasData' || !signup.data) {
     content = <Login />;
@@ -25,7 +24,9 @@ function App() {
   return (
     <>
     <GlobalStyle />
+    <Suspense fallback={null}>
     {content}
+    </Suspense>
     </>
   );
 }
