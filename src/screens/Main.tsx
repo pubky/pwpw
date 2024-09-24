@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
-import { categoiesRWAtom, itemsRWAtom, locationAtom } from "../atoms";
 import { loadable } from "jotai/utils";
+import { useState } from "react";
+import { categoiesRWAtom, itemsRWAtom, locationAtom } from "../atoms";
 import { TCategory } from "../types";
 
 export const loadableCategoiesAtom = loadable(categoiesRWAtom)
@@ -9,15 +10,14 @@ const Main = () => {
   const [cats, setCats] = useAtom(categoiesRWAtom)
   const [items, setItems] = useAtom(itemsRWAtom)
   const [, setLoc] = useAtom(locationAtom)
+  const [selectedCat, setSelectedCat] = useState('')
 
-  const handleCatClick = (id: string) => {
-    setLoc({
-      pathname: '/',
-      searchParams: new URLSearchParams([['category', id]]),
-    })
-    // setCats([{ id: '1', name: 'Sites' }])
-    // console.info('saved')
-  }
+  // const handleCatClick = (id: string) => {
+  //   setLoc({
+  //     pathname: '/',
+  //     searchParams: new URLSearchParams([['category', id]]),
+  //   })
+  // }
 
   const handleSetCat = async () => {
     await setCats([{ id: '1', name: 'Sites' }])
@@ -47,6 +47,12 @@ const Main = () => {
     setLoc({ pathname: '/edit', searchParams: new URLSearchParams([['id', id]]) })
   }
 
+  const handleSetCategory = (id: string) => {
+    setSelectedCat(id)
+  }
+
+  const filtered = items.filter((i) => !selectedCat || i.category === selectedCat)
+
   return (
     <>
       <div className="sidebar">
@@ -55,8 +61,9 @@ const Main = () => {
           <li onClick={handleSetItems}>set items</li>
           <li onClick={handleSetItemsEmpty}>set items empty</li>
           <li onClick={handleSetCat}>set cats</li>
+          <li onClick={() => handleSetCategory('')}>All</li>
           {cats.map((c: TCategory) => (
-            <li key={c.id} onClick={() => handleCatClick(c.id)}>{c.name}</li>
+            <li key={c.id} onClick={() => handleSetCategory(c.id)}>{c.name}</li>
           ))}
         </ul>
         <button className="button" onClick={handleAddCategory}>Add Category</button>
@@ -74,10 +81,7 @@ const Main = () => {
         </div>
         <div className="item-list">
           <ul>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-            {items.map((i) => (
+            {filtered.map((i) => (
               <li onClick={() => handleSelectItem(i.id)} key={i.id}>{i.title}</li>
             ))}
           </ul>
