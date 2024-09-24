@@ -43,6 +43,10 @@ const Main = () => {
     setLoc({ pathname: '/add-category' })
   }
 
+  const handleSelectItem = (id: string) => {
+    setLoc({ pathname: '/edit', searchParams: new URLSearchParams([['id', id]]) })
+  }
+
   return (
     <>
       <div className="sidebar">
@@ -74,7 +78,7 @@ const Main = () => {
             <li>Item 2</li>
             <li>Item 3</li>
             {items.map((i) => (
-              <li key={i.id}>{i.title}</li>
+              <li onClick={() => handleSelectItem(i.id)} key={i.id}>{i.title}</li>
             ))}
           </ul>
         </div>

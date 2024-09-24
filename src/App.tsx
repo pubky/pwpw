@@ -8,6 +8,7 @@ import GlobalStyle from './styles/global';
 
 import "./styles.css";
 import AddCategory from "./screens/AddCategory";
+import Edit from "./screens/Edit";
 
 function App() {
   const [loc, setLoc] = useAtom(locationAtom)
@@ -21,6 +22,8 @@ function App() {
     content = <Main />;
   } else if (loc.pathname === '/add') {
     content = <Add />;
+  } else if (loc.pathname === '/edit') {
+    content = <Edit id={loc.searchParams.get('id')} />;
   } else if (loc.pathname === '/add-category') {
     content = <AddCategory />;
   } else {
