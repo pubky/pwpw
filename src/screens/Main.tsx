@@ -19,21 +19,21 @@ const Main = () => {
   //   })
   // }
 
-  const handleSetCat = async () => {
-    await setCats([{ id: '1', name: 'Sites' }])
-  }
+  // const handleSetCat = async () => {
+  //   await setCats([{ id: '1', name: 'Sites' }])
+  // }
 
-  const handleSetItems = async () => {
-    await setItems([{ id: 'aaaa', title: 'Google' }, { id: 'bbbb', title: 'Facebook' }])
-  }
+  // const handleSetItems = async () => {
+  //   await setItems([{ id: 'aaaa', title: 'Google' }, { id: 'bbbb', title: 'Facebook' }])
+  // }
 
-  const handleSetItemsEmpty = async () => {
-    try {
-      await setItems([])
-    } catch(e) {
-      console.info('e', e)
-    }
-  }
+  // const handleSetItemsEmpty = async () => {
+  //   try {
+  //     await setItems([])
+  //   } catch(e) {
+  //     console.info('e', e)
+  //   }
+  // }
 
   const handleAddItem = () => {
     setLoc({ pathname: '/add' })
@@ -57,13 +57,22 @@ const Main = () => {
     <>
       <div className="sidebar">
         <ul>
-          <li>Category 1</li>
-          <li onClick={handleSetItems}>set items</li>
+          {/*<li>Category 1</li>*/}
+{/*          <li onClick={handleSetItems}>set items</li>
           <li onClick={handleSetItemsEmpty}>set items empty</li>
-          <li onClick={handleSetCat}>set cats</li>
-          <li onClick={() => handleSetCategory('')}>All</li>
+          <li onClick={handleSetCat}>set cats</li>*/}
+          <li
+            className={!selectedCat ? 'selected' : ''}
+            onClick={() => handleSetCategory('')}>
+              All
+            </li>
           {cats.map((c: TCategory) => (
-            <li key={c.id} onClick={() => handleSetCategory(c.id)}>{c.name}</li>
+            <li
+              key={c.id}
+              className={c.id === selectedCat ? 'selected' : ''}
+              onClick={() => handleSetCategory(c.id)}>
+                {c.name}
+              </li>
           ))}
         </ul>
         <button className="button" onClick={handleAddCategory}>Add Category</button>
@@ -71,13 +80,8 @@ const Main = () => {
       </div>
       <div className="content">
         <div className="top-menu">
-          <button onClick={handleAddItem}>Add</button>
-          <button>Close</button>
-          <button>Add Entry</button>
-          <button>Edit</button>
-          <button>Delete</button>
-          <button>Copy Password</button>
-          <button>Copy Username</button>
+          <button onClick={handleAddItem}>Add Item</button>
+          <button>Exit</button>
         </div>
         <div className="item-list">
           <ul>
@@ -85,6 +89,12 @@ const Main = () => {
               <li onClick={() => handleSelectItem(i.id)} key={i.id}>{i.title}</li>
             ))}
           </ul>
+
+          {filtered.length === 0 && (
+            <div className="empty-list">
+              <p>No items in the category</p>
+            </div>
+          )}
         </div>
       </div>
     </>

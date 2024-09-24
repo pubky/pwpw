@@ -87,6 +87,20 @@ const Edit = ({ id } : { id: string }) => {
     }
   }
 
+  const handleDelete = async () => {
+    const newItems = items.filter((i: TItem) => i.id !== id)
+
+    try {
+      setItems(newItems)
+    } catch(e: any) {
+      console.error(e)
+      setErr(e.message)
+      return
+    }
+
+    setLoc({ pathname: '/' })
+  }
+
   return (
       <div className="container">
         <h1>Edit Entry</h1>
@@ -155,6 +169,9 @@ const Edit = ({ id } : { id: string }) => {
 
           <div className="form-buttons">
             <button type="submit">Save</button>
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" className="button-delete" onClick={handleDelete}>Delete</button>
+            &nbsp;&nbsp;&nbsp;
             <button type="button" onClick={handleClose}>Close</button>
           </div>
         </form>
