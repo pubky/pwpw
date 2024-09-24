@@ -12,16 +12,16 @@ const Login = () => {
     setSecret(secretInput);
   }
 
-  console.info('signup', signup)
-
   return (
     <div className="container">
       <h1>Secret</h1>
       {signup.state === 'loading' && <p>Loading...</p>}
-      {signup.state === 'hasError' && <p>{String(signup.error)}</p>}
+      {signup.state === 'hasError' && <div className="error-message">
+            Incorrect password. Please try again.
+        </div>}
 
       <form onSubmit={handleSubmit}>
-        <input value={secretInput} onChange={(e) => setSecretInput(e.target.value)} type="password" placeholder="Enter Secret in HEX" />
+        <input value={secretInput} className="input-field" onChange={(e) => setSecretInput(e.target.value)} type="password" placeholder="Enter Secret in HEX" />
         <button disabled={signup.state === 'loading'} type="submit">Login</button>
       </form>
     </div>

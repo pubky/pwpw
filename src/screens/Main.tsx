@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { categoiesRWAtom, itemsAtom, itemsRWAtom, locationAtom } from "../atoms";
+import { categoiesRWAtom, itemsRWAtom, locationAtom } from "../atoms";
 import { loadable } from "jotai/utils";
 import { TCategory } from "../types";
 
@@ -8,8 +8,7 @@ export const loadableCategoiesAtom = loadable(categoiesRWAtom)
 const Main = () => {
   const [cats, setCats] = useAtom(categoiesRWAtom)
   const [items, setItems] = useAtom(itemsRWAtom)
-  const [items2, setItems2] = useAtom(itemsAtom)
-  const [loc, setLoc] = useAtom(locationAtom)
+  const [, setLoc] = useAtom(locationAtom)
 
   const handleCatClick = (id: string) => {
     setLoc({
@@ -36,12 +35,13 @@ const Main = () => {
     }
   }
 
-  const handleAdd = () => {
+  const handleAddItem = () => {
     setLoc({ pathname: '/add' })
   }
 
-  console.info('items', items)
-  console.info('items2', items2)
+  const handleAddCategory = () => {
+    setLoc({ pathname: '/add-category' })
+  }
 
   return (
     <>
@@ -55,10 +55,12 @@ const Main = () => {
             <li key={c.id} onClick={() => handleCatClick(c.id)}>{c.name}</li>
           ))}
         </ul>
+        <button className="button" onClick={handleAddCategory}>Add Category</button>
+        {/*<button className="button">Remove Category</button>*/}
       </div>
       <div className="content">
         <div className="top-menu">
-          <button onClick={handleAdd}>Add</button>
+          <button onClick={handleAddItem}>Add</button>
           <button>Close</button>
           <button>Add Entry</button>
           <button>Edit</button>

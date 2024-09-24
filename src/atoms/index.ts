@@ -96,6 +96,7 @@ export const categoiesRWAtom = atom(async (get) => {
   if (!secretKey) {
     return
   }
+  console.info('cats', cats)
   // const buff = Buffer.from(JSON.stringify(cats));
   const buff = await encodeData(cats, secretKey);
   await signup.put(`${url}cats`, buff);
