@@ -51,6 +51,10 @@ const Main = () => {
     setSelectedCat(id)
   }
 
+  const handleRemoveCategory = () => {
+    setLoc({ pathname: '/delete-category'})
+  }
+
   const filtered = items.filter((i) => !selectedCat || i.category === selectedCat)
 
   return (
@@ -76,7 +80,7 @@ const Main = () => {
           ))}
         </ul>
         <button className="button" onClick={handleAddCategory}>Add Category</button>
-        {/*<button className="button">Remove Category</button>*/}
+        <button className="button" onClick={handleRemoveCategory}>Remove Category</button>
       </div>
       <div className="content">
         <div className="top-menu">

@@ -4,14 +4,15 @@ import { loadableSignupAtom, locationAtom } from "./atoms";
 import Add from "./screens/Add";
 import Login from "./screens/Login";
 import Main from "./screens/Main";
-import GlobalStyle from './styles/global';
-
-import "./styles.css";
-import AddCategory from "./screens/AddCategory";
 import Edit from "./screens/Edit";
+import AddCategory from "./screens/AddCategory";
+import DeleteCategory from "./screens/DeleteCategory";
+
+import GlobalStyle from './styles/global';
+import "./styles.css";
 
 function App() {
-  const [loc, setLoc] = useAtom(locationAtom)
+  const [loc] = useAtom(locationAtom)
   const [signup] = useAtom(loadableSignupAtom)
 
   let content
@@ -23,9 +24,11 @@ function App() {
   } else if (loc.pathname === '/add') {
     content = <Add />;
   } else if (loc.pathname === '/edit') {
-    content = <Edit id={loc.searchParams.get('id')} />;
+    content = <Edit id={loc.searchParams?.get('id')!} />;
   } else if (loc.pathname === '/add-category') {
     content = <AddCategory />;
+  } else if (loc.pathname === '/delete-category') {
+    content = <DeleteCategory />;
   } else {
     content = <Main />;
   }
