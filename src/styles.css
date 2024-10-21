@@ -149,6 +149,8 @@ body {
     border-bottom: 1px solid #555555;
     color: #FFFFFF;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }
 
 .item-list li:hover {
@@ -183,3 +185,15 @@ h1 {
     text-align: center;
 }
 
+.item-button {
+    padding: 5px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

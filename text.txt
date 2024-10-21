@@ -1,0 +1,19 @@
+During my hack week project, I wanted to explore using Pubky as a personal file storage tool. Relying on big companies to sync your most valuable data can be risky. So, I aimed to create a simple app that would allow me to securely store my passwords on my home server.
+
+Pubky offers complete control over how you store, sync, and manage your data, making it the perfect platform for an app like this.
+
+Let me show you how it works.
+
+Here’s the login screen—this is where you enter your private key as a hex string, like this.
+
+If no previous data exists, the app will automatically create a new, empty data structure for you.
+
+Passwords are organized into categories, so let's create one.
+
+Now, let's add a new password record.
+
+After that, you can easily copy the username or password to your clipboard, just like with any other password manager.
+
+You can also edit or delete records when needed.
+
+And that’s it! I hope you’ll enjoy hacking on Pubky as much as I did!

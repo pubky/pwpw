@@ -14,6 +14,11 @@ const Login = () => {
 
   return (
     <div className="container">
+      <img src="/logo.jpg" className="logo" width={200} />
+      <br />
+      <br />
+      <br />
+      <br />
       <h1>Secret</h1>
       {signup.state === 'loading' && <p>Loading...</p>}
       {signup.state === 'hasError' && <div className="error-message">
