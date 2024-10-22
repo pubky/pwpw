@@ -48,6 +48,34 @@ To get started with **pwpw**, follow the steps below:
     npm run tauri build
     ```
 
+## Homeserver
+
+To run a local instance of the testnet homeserver, follow these steps below:
+
+### Steps
+
+1. Clone the `pubky` repository:
+    ```bash
+    git clone https://github.com/pubky/pubky.git
+    ```
+
+2. Navigate to the directory:
+    ```bash
+    cd pubky/pubky/pkg
+    ```
+
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+4. Run the homeserver in testnet mode:
+    ```bash
+    npm run testnet
+    ```
+
+The **pwpw** desktop app will already be pointed to this server.
+
 ## Usage
 
 Once the app is running, you can:
