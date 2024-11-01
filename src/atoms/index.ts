@@ -50,7 +50,7 @@ export const urlAtom = atom((get) => {
   return `pubky://${z32}/pub/pwpw/`
 })
 
-export const categoiesAtom = atom([]);
+export const categoiesAtom = atom<TCategories>([]);
 export const categoiesRWAtom = atom(async (get) => {
   const signup = await get(signupAtom);
   if (!signup) {
